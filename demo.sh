@@ -97,13 +97,12 @@ vault auth $(cat root.token)
 # =========================================================================== VAULT TOKEN HELPER
 
 # --------------------------------------------------------------------------- helper binary
-
-mkdir -p "$HOME/.vault.d/token-helpers"
-
-cp vault-token-helper-gopass "$HOME/.vault.d/token-helpers"
-
-chmod +x "$HOME/.vault.d/token-helpers/vault-token-helper-gopass"
-
+if [ ! -f "$HOME/.vault.d/token-helpers/vault-token-helper-gopass" ]
+then
+  mkdir -p "$HOME/.vault.d/token-helpers"
+  cp vault-token-helper-gopass "$HOME/.vault.d/token-helpers"
+  chmod +x "$HOME/.vault.d/token-helpers/vault-token-helper-gopass"
+fi
 # --------------------------------------------------------------------------- helper config
 
 tk="token_helper = \"$HOME/.vault.d/token-helpers/vault-token-helper-gopass\""
