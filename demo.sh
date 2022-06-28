@@ -6,8 +6,8 @@
 if [ "$1" = "clean" ]
 then
   killall vault
-  rm -fr etc var #bin
-  rm -f nohup.out *.token *.keys *.hcl *.crt *.key
+  rm -fr ./etc ./var #./bin
+  rm -f nohup.out ./*.token ./*.keys ./*.hcl ./*.crt ./*.key
   exit
 fi
 
@@ -90,9 +90,9 @@ vault init -key-shares=1 -key-threshold=1                  \
     >(awk '/^Initial Root Token:/{print $4}' > root.token) \
     >(awk '/^Unseal Key/{print $4}' > unseal.keys)
 
-vault unseal $(cat unseal.keys)
+vault unseal "$(cat unseal.keys)"
 
-vault auth $(cat root.token)
+vault auth "$(cat root.token)"
 
 # =========================================================================== VAULT TOKEN HELPER
 
